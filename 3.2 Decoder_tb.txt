@@ -1,0 +1,45 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity tb_decoder3to8 is
+end tb_decoder3to8;
+
+architecture behavior of tb_decoder3to8 is
+
+    -- Component declaration for the Unit Under Test (UUT)
+    component decoder3to8
+        Port (
+            din  : in  STD_LOGIC_VECTOR (2 downto 0);
+            dout : out STD_LOGIC_VECTOR (7 downto 0)
+        );
+    end component;
+
+    -- Signals for testing
+    signal din  : STD_LOGIC_VECTOR (2 downto 0) := (others => '0');
+    signal dout : STD_LOGIC_VECTOR (7 downto 0);
+
+begin
+
+    -- Instantiate the UUT
+    uut: decoder3to8
+        port map (
+            din  => din,
+            dout => dout
+        );
+
+    -- Stimulus process
+    stim_proc: process
+    begin
+        din <= "000"; wait for 10 ns; -- Expected dout = 00000001
+        din <= "001"; wait for 10 ns; -- Expected dout = 00000010
+        din <= "010"; wait for 10 ns; -- Expected dout = 00000100
+        din <= "011"; wait for 10 ns; -- Expected dout = 00001000
+        din <= "100"; wait for 10 ns; -- Expected dout = 00010000
+        din <= "101"; wait for 10 ns; -- Expected dout = 00100000
+        din <= "110"; wait for 10 ns; -- Expected dout = 01000000
+        din <= "111"; wait for 10 ns; -- Expected dout = 10000000
+
+        wait; -- Stop simulation
+    end process;
+
+end behavior;

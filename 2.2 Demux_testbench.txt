@@ -1,0 +1,49 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity tb_DEMUX1to8 is
+end tb_DEMUX1to8;
+
+architecture behavior of tb_DEMUX1to8 is
+
+    -- Component declaration
+    component DEMUX1to8
+        Port (
+            D : in STD_LOGIC;
+            S : in STD_LOGIC_VECTOR (2 downto 0);
+            Y : out STD_LOGIC_VECTOR (7 downto 0)
+        );
+    end component;
+
+    -- Signals for test
+    signal D : STD_LOGIC := '1';
+    signal S : STD_LOGIC_VECTOR (2 downto 0);
+    signal Y : STD_LOGIC_VECTOR (7 downto 0);
+
+begin
+
+    -- Instantiate the Unit Under Test (UUT)
+    uut: DEMUX1to8
+        port map (
+            D => D,
+            S => S,
+            Y => Y
+        );
+
+    -- Stimulus process
+    stim_proc: process
+    begin
+        for i in 0 to 7 loop
+            S <= std_logic_vector(to_unsigned(i, 3));
+            wait for 10 ns;
+        end loop;
+
+        -- Set input D to '0' to verify all outputs are '0'
+        D <= '0';
+        S <= "100";
+        wait for 10 ns;
+
+        wait; -- end of simulation
+    end process;
+
+end behavior;

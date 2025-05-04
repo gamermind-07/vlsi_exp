@@ -1,0 +1,52 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity tb_encoder8to3 is
+end tb_encoder8to3;
+
+architecture behavior of tb_encoder8to3 is
+
+    -- Component declaration for the Unit Under Test (UUT)
+    component encoder8to3
+        Port (
+            din  : in  STD_LOGIC_VECTOR (7 downto 0);
+            dout : out STD_LOGIC_VECTOR (2 downto 0)
+        );
+    end component;
+
+    -- Signals to connect to UUT
+    signal din  : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
+    signal dout : STD_LOGIC_VECTOR (2 downto 0);
+
+begin
+
+    -- Instantiate the Unit Under Test (UUT)
+    uut: encoder8to3
+        Port map (
+            din  => din,
+            dout => dout
+        );
+
+    -- Stimulus process
+    stim_proc: process
+    begin
+        -- Test each one-hot input
+        din <= "00000001"; wait for 10 ns; -- Output: 000
+        din <= "00000010"; wait for 10 ns; -- Output: 001
+        din <= "00000100"; wait for 10 ns; -- Output: 010
+        din <= "00001000"; wait for 10 ns; -- Output: 011
+        din <= "00010000"; wait for 10 ns; -- Output: 100
+        din <= "00100000"; wait for 10 ns; -- Output: 101
+        din <= "01000000"; wait for 10 ns; -- Output: 110
+        din <= "10000000"; wait for 10 ns; -- Output: 111
+
+        -- Test invalid (no bit high)
+        din <= "00000000"; wait for 10 ns; -- Output: default (000)
+
+        -- Test invalid (multiple bits high)
+        din <= "00000011"; wait for 10 ns; -- Output: default (000)
+
+        wait; -- Wait forever
+    end process;
+
+end behavior;

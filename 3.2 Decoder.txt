@@ -1,0 +1,27 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity decoder3to8 is
+    Port (
+        din  : in  STD_LOGIC_VECTOR (2 downto 0);
+        dout : out STD_LOGIC_VECTOR (7 downto 0)
+    );
+end decoder3to8;
+
+architecture Behavioral of decoder3to8 is
+begin
+    process(din)
+    begin
+        case din is
+            when "000" => dout <= "00000001"; -- Input 0
+            when "001" => dout <= "00000010"; -- Input 1
+            when "010" => dout <= "00000100"; -- Input 2
+            when "011" => dout <= "00001000"; -- Input 3
+            when "100" => dout <= "00010000"; -- Input 4
+            when "101" => dout <= "00100000"; -- Input 5
+            when "110" => dout <= "01000000"; -- Input 6
+            when "111" => dout <= "10000000"; -- Input 7
+            when others => dout <= "00000000"; -- Default (shouldn't happen)
+        end case;
+    end process;
+end Behavioral;
