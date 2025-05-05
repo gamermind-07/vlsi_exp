@@ -1,0 +1,25 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity Multiplier_3bit is
+    Port (
+        A       : in  STD_LOGIC_VECTOR(2 downto 0);
+        B       : in  STD_LOGIC_VECTOR(2 downto 0);
+        Product : out STD_LOGIC_VECTOR(5 downto 0)
+    );
+end Multiplier_3bit;
+
+architecture Behavioral of Multiplier_3bit is
+begin
+    process(A, B)
+        variable a_int : integer;
+        variable b_int : integer;
+        variable result : integer;
+    begin
+        a_int := to_integer(unsigned(A));
+        b_int := to_integer(unsigned(B));
+        result := a_int * b_int;
+        Product <= std_logic_vector(to_unsigned(result, 6));
+    end process;
+end Behavioral;
