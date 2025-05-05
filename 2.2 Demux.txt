@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 -- VLSI Lab Manual - Government College of Engineering, Karad (ENTC Dept)
--- Roll No: 22151203
+-- Roll No: 
 
 entity DEMUX1to8 is
     Port (
